@@ -3,13 +3,18 @@ import com.alura.screenmatch.logical.ConsultingMovies;
 import com.alura.screenmatch.logical.ConsultingSeries;
 import com.alura.screenmatch.model.Serie;
 import com.alura.screenmatch.model.SeriesData;
+import com.alura.screenmatch.repository.SerieRepository;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
 public class Main {
+    private SerieRepository repository;
+    public Main(SerieRepository repository) {
+        this.repository = repository;
+    }
+
     public void mainCall() {
         Scanner keyword = new Scanner(System.in);
         ConsultingSeries consultingSeries = new ConsultingSeries();
@@ -28,13 +33,17 @@ public class Main {
             switch (userInput) {
                 case 1 -> {
                     List<SeriesData> seriesData =  consultingSeries.consultingSeriesExecution();
-                    dataList.addAll(seriesData);
+                    List<Serie> serieList = seriesData.stream()
+                                    .map(Serie::new)
+                            .toList();
+                    repository.saveAll(serieList);
                 } case 2 -> {
                     List <SeriesData> moviesData = consultingMovies.consultingMoviesExecution();
+
                     dataList.addAll(moviesData);
                 }
                 case 0 -> {
-                    List<Serie> series = new ArrayList<>();
+                    List<Serie> series;
                     series = dataList.stream()
                             .map(Serie::new)
                             .sorted(Comparator.comparing(Serie::getGenre))

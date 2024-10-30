@@ -1,12 +1,11 @@
 package com.alura.screenmatch.logical;
-
-import com.alura.screenmatch.data.Data;
 import com.alura.screenmatch.model.EpisodesData;
 import com.alura.screenmatch.model.SeasonData;
 import com.alura.screenmatch.model.SeriesData;
 import com.alura.screenmatch.service.ApiCall;
 import com.alura.screenmatch.service.DataConversor;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +14,6 @@ import java.util.Scanner;
 public class ConsultingSeries  {
     Scanner keyword = new Scanner(System.in);
     ApiCall apiCall = new ApiCall();
-    Data data = new Data();
 
     public List<SeriesData> consultingSeriesExecution() {
         final String URL_IMDB = "http://www.omdbapi.com/?apikey=6846f2b8&t=";
@@ -28,7 +26,6 @@ public class ConsultingSeries  {
         String apiCallResponse = apiCall.receivingData(url);
         DataConversor converse = new DataConversor();
         var dataSeries = converse.obtainingData(apiCallResponse, SeriesData.class);
-        var dataList = data.DataList(dataSeries);
         System.out.println(dataSeries);
         System.out.println("Basado en el total de temporadas: " +
                 "(" + dataSeries.totalSeasons() + ")" + " escoge la temporada que quieras ver");
@@ -55,7 +52,7 @@ public class ConsultingSeries  {
                     System.out.println("Episodio: " + e.episode());
                     System.out.println(e.title() + " con una puntuación de: " + e.imdbRating());
                 });
-        return dataList;
+        return Collections.singletonList(dataSeries);
     }
 }
 

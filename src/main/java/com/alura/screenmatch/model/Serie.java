@@ -1,10 +1,6 @@
 package com.alura.screenmatch.model;
-
-
-import com.alura.screenmatch.service.ChatGptCalling;
 import jakarta.persistence.*;
-
-import java.util.Optional;
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -22,6 +18,8 @@ public class Serie {
     private String actors;
     private String poster;
     private String plot;
+    @Transient
+    private List<EpisodesData> episodes;
 
     public Serie(SeriesData seriesData) {
         this.title = seriesData.title();
