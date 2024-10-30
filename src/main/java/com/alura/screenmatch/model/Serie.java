@@ -1,6 +1,8 @@
 package com.alura.screenmatch.model;
 
 
+import com.alura.screenmatch.service.ChatGptCalling;
+
 import java.util.Optional;
 import java.util.OptionalDouble;
 
@@ -20,6 +22,7 @@ public class Serie {
         this.genre = CategoryEnum.fromString(seriesData.genre().split(",")[0].trim());
         this.actors = seriesData.actors();
         this.poster = seriesData.poster();
+//        this.plot = ChatGptCalling.translating(seriesData.plot());
         this.plot = seriesData.plot();
     }
 
