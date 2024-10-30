@@ -2,14 +2,22 @@ package com.alura.screenmatch.model;
 
 
 import com.alura.screenmatch.service.ChatGptCalling;
+import jakarta.persistence.*;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
 
+@Entity
+@Table(name = "series")
 public class Serie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long Id;
+    @Column(unique = true)
     private String title;
     private Double rating;
     private Integer totalSeasons;
+    @Enumerated(EnumType.STRING)
     private CategoryEnum genre;
     private String actors;
     private String poster;
@@ -24,6 +32,14 @@ public class Serie {
         this.poster = seriesData.poster();
 //        this.plot = ChatGptCalling.translating(seriesData.plot());
         this.plot = seriesData.plot();
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getTitle() {
