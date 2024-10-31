@@ -31,6 +31,7 @@ public class Serie {
 //        this.plot = ChatGptCalling.translating(seriesData.plot());
         this.plot = seriesData.plot();
     }
+    Serie(){}
 
     public long getId() {
         return Id;

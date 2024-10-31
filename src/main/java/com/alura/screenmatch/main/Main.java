@@ -43,14 +43,7 @@ public class Main {
                     dataList.addAll(moviesData);
                 }
                 case 0 -> {
-                    List<Serie> series;
-                    series = dataList.stream()
-                            .map(Serie::new)
-                            .sorted(Comparator.comparing(Serie::getGenre))
-                            .toList();
-
-
-
+                    var series = repository.findAll();
                     System.out.println("Tus series y/o películas consultadas fueron: " + series);
                     System.out.println("Saliendo...");
                     out = false;
