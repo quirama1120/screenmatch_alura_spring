@@ -1,5 +1,6 @@
 package com.alura.screenmatch;
 import com.alura.screenmatch.main.Main;
+import com.alura.screenmatch.repository.EpisodeRepository;
 import com.alura.screenmatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,13 +12,15 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Autowired
 	private SerieRepository repository;
+	@Autowired
+	private EpisodeRepository episodeRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(ScreenmatchApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) {
-	Main main = new Main(repository);
+	Main main = new Main(repository, episodeRepository);
 	main.mainCall();
 	}
 }

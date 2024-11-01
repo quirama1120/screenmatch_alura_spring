@@ -23,6 +23,9 @@ public class Episode {
         this.released = data.released();
     }
 
+    public Episode(EpisodesData data) {
+    }
+
     public String getEpisode() {
         return episode;
     }

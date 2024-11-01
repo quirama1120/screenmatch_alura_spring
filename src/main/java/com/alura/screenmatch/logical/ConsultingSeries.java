@@ -26,31 +26,6 @@ public class ConsultingSeries  {
         DataConversor converse = new DataConversor();
         var dataSeries = converse.obtainingData(apiCallResponse, SeriesData.class);
         System.out.println(dataSeries);
-        System.out.println("Basado en el total de temporadas: " +
-                "(" + dataSeries.totalSeasons() + ")" + " escoge la temporada que quieras ver");
-
-        String inputSeason = keyword.nextLine();
-        String urlSeason = URL_IMDB + inputUrl + "&Season=" + inputSeason;
-        String apicalSeasonResponse = apiCall.receivingData(urlSeason);
-
-        var dataSeasonSeries = converse.obtainingData(apicalSeasonResponse, SeasonData.class);
-        System.out.println("Los episodios de la temporada " + inputSeason + " de la serie " + input + " son: ");
-
-        dataSeasonSeries.episodes().forEach(t -> {
-            System.out.println("Episodio " + t.episode() + ":");
-            System.out.println(t.title());
-            System.out.println("**************************");
-        });
-
-        System.out.println("El top 3 de la temporada es: ");
-        dataSeasonSeries.episodes().stream()
-                .filter(e -> !e.imdbRating().equalsIgnoreCase("N/A"))
-                .sorted(Comparator.comparing(EpisodesData::imdbRating).reversed())
-                .limit(3)
-                .forEach(e -> {
-                    System.out.println("Episodio: " + e.episode());
-                    System.out.println(e.title() + " con una puntuación de: " + e.imdbRating());
-                });
         return Collections.singletonList(dataSeries);
     }
 }
