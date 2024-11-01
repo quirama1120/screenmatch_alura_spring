@@ -17,7 +17,6 @@ public class ConsultingSeries  {
 
     public List<SeriesData> consultingSeriesExecution() {
         final String URL_IMDB = "http://www.omdbapi.com/?apikey=6846f2b8&t=";
-
         System.out.println("Ingresa el nombre de la serie o película que quieres ver");
         String input = keyword.nextLine();
         String inputUrl = input.replaceAll(" ", "+");

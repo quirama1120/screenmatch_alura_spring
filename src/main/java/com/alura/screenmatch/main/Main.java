@@ -5,12 +5,10 @@ import com.alura.screenmatch.model.Serie;
 import com.alura.screenmatch.model.SeriesData;
 import com.alura.screenmatch.repository.SerieRepository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 public class Main {
-    private SerieRepository repository;
+    private final SerieRepository repository;
     public Main(SerieRepository repository) {
         this.repository = repository;
     }
@@ -44,7 +42,7 @@ public class Main {
                 }
                 case 0 -> {
                     var series = repository.findAll();
-                    System.out.println("Tus series y/o películas consultadas fueron: " + series);
+                    System.out.println(series);
                     System.out.println("Saliendo...");
                     out = false;
                 }

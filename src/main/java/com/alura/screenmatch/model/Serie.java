@@ -18,8 +18,8 @@ public class Serie {
     private String actors;
     private String poster;
     private String plot;
-    @Transient
-    private List<EpisodesData> episodes;
+    @OneToMany(mappedBy = "serie")
+    private List<Episode> episodes;
 
     public Serie(SeriesData seriesData) {
         this.title = seriesData.title();
