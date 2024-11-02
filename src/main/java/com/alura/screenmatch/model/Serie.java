@@ -18,7 +18,7 @@ public class Serie {
     private String actors;
     private String poster;
     private String plot;
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
     private List<Episode> episodes;
 
     public Serie(SeriesData seriesData) {

@@ -5,8 +5,10 @@ import com.alura.screenmatch.logical.ConsultingSeries;
 import com.alura.screenmatch.model.*;
 import com.alura.screenmatch.repository.EpisodeRepository;
 import com.alura.screenmatch.repository.SerieRepository;
+import jakarta.transaction.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     private final SerieRepository repository;
@@ -35,34 +37,34 @@ public class Main {
             int userInput = keyword.nextInt();
             switch (userInput) {
                 case 1 -> {
-                    List<SeriesData> seriesData =  consultingSeries.consultingSeriesExecution();
-                    List<EpisodesData> episodesData = consultingEpisodes.consultingEpisodesExecution(seriesData);
+                    List<SeriesData> seriesData = consultingSeries.consultingSeriesExecution();
 
                     List<Serie> serieList = seriesData.stream()
                             .map(Serie::new)
-                            .filter(serie -> repository.findByTitle(serie.getTitle()).isEmpty())
-                            .toList();
-                    if(!serieList.isEmpty()){
+                                    .filter(serie -> repository.findByTitle(serie.getTitle()).isEmpty())
+                                    .toList();
+
+                    if (!serieList.isEmpty()) {
                         repository.saveAll(serieList);
                         System.out.println("Nuevas series guardadas en la base de datos.");
-
-
-
                     } else {
                         System.out.println("Todas las series ya existen en la base de datos.");
                     }
 
+                    List<EpisodesData> episodesData = consultingEpisodes.consultingEpisodesExecution(seriesData);
+
                     List<Episode> episodeList = episodesData.stream()
                             .map(Episode::new)
+                            .peek(episode -> System.out.println("Episodio mapeado: " + episode.getEpisode()))
                             .filter(episode -> episodeRepository.findByEpisode(episode.getEpisode()).isEmpty())
                             .toList();
-                    if(!episodeList.isEmpty()) {
-                        episodeRepository.saveAll(episodeList);
-                        System.out.println("Nuevos episodios guardados en la base de datos.");
 
-                    } else {
-                        System.out.println("Todos los episodios ya existen en la base de datos.");
-                    }
+                        if (!episodeList.isEmpty()) {
+                            episodeRepository.saveAll(episodeList);
+                            System.out.println("Nuevos episodios guardados en la base de datos para la serie: ");
+                        } else {
+                            System.out.println("Todos los episodios ya existen en la base de datos para la serie: ");
+                        }
 
                 } case 2 -> {
                     List <SeriesData> moviesData = consultingMovies.consultingMoviesExecution();

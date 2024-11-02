@@ -35,6 +35,7 @@ public class ConsultingEpisodes {
         System.out.println("Los episodios de la temporada " + inputSeason + " de la serie " + serieList.stream()
                 .map(SeriesData::title)+ " son: ");
         var episodesData = dataSeasonSeries.episodes();
+        System.out.println(episodesData);
         dataSeasonSeries.episodes().forEach(t -> {
             System.out.println("Episodio " + t.episode() + ":");
             System.out.println(t.title());

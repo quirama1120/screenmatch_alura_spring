@@ -24,6 +24,14 @@ public class Episode {
     }
 
     public Episode(EpisodesData data) {
+        this.episode = data.episode();
+        this.title = data.title();
+        this.imdbRating = data.imdbRating();
+        this.released = data.released();
+    }
+
+    public Episode(String episode, EpisodesData episodesData) {
+        this.episode = episodesData.episode();
     }
 
     public String getEpisode() {
@@ -63,7 +71,9 @@ public class Episode {
     }
 
     public void setSerie(Serie serie) {
+
         this.serie = serie;
+
     }
 
     @Override
