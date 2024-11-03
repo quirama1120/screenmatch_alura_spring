@@ -41,23 +41,19 @@ public class Main {
 
                     List<Serie> serieList = seriesData.stream()
                             .map(Serie::new)
-                                    .filter(serie -> repository.findByTitle(serie.getTitle()).isEmpty())
-                                    .toList();
+                            .filter(serie -> repository.findByTitle(serie.getTitle()).isEmpty())
+                            .toList();
 
                     if (!serieList.isEmpty()) {
                         repository.saveAll(serieList);
                         System.out.println("Nuevas series guardadas en la base de datos.");
-                    } else {
-                        System.out.println("Todas las series ya existen en la base de datos.");
-                    }
-
-                    List<EpisodesData> episodesData = consultingEpisodes.consultingEpisodesExecution(seriesData);
-
-                    List<Episode> episodeList = episodesData.stream()
-                            .map(Episode::new)
-                            .peek(episode -> System.out.println("Episodio mapeado: " + episode.getEpisode()))
-                            .filter(episode -> episodeRepository.findByEpisode(episode.getEpisode()).isEmpty())
-                            .toList();
+                        List<EpisodesData> episodesData = consultingEpisodes.consultingEpisodesExecution(seriesData);
+                        Serie serie = serieList.get(0);
+                        List<Episode> episodeList = episodesData.stream()
+                                .map(Episode::new)
+                                .peek(episode -> episode.setSerie(serie))
+                                .filter(episode -> episodeRepository.findByEpisode(episode.getEpisode()).isEmpty())
+                                .toList();
 
                         if (!episodeList.isEmpty()) {
                             episodeRepository.saveAll(episodeList);
@@ -65,7 +61,9 @@ public class Main {
                         } else {
                             System.out.println("Todos los episodios ya existen en la base de datos para la serie: ");
                         }
-
+                    } else {
+                        System.out.println("Todas las series ya existen en la base de datos.");
+                    }
                 } case 2 -> {
                     List <SeriesData> moviesData = consultingMovies.consultingMoviesExecution();
 

@@ -12,7 +12,8 @@ public class Episode {
     private String title;
     private String imdbRating;
     private String released;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "serie_id")
     private Serie serie;
 
     public Episode() {}
@@ -71,9 +72,10 @@ public class Episode {
     }
 
     public void setSerie(Serie serie) {
-
         this.serie = serie;
-
+        if (serie != null && !serie.getEpisodes().contains(this)) {
+            serie.getEpisodes().add(this);
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.alura.screenmatch.model;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
@@ -18,8 +20,8 @@ public class Serie {
     private String actors;
     private String poster;
     private String plot;
-    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
-    private List<Episode> episodes;
+    @OneToMany(mappedBy = "serie", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
+    private List<Episode> episodes = new ArrayList<>();
 
     public Serie(SeriesData seriesData) {
         this.title = seriesData.title();
@@ -95,6 +97,15 @@ public class Serie {
 
     public void setPlot(String plot) {
         this.plot = plot;
+    }
+
+    public List<Episode> getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(List<Episode> episodes) {
+        episodes.forEach(e -> e.setSerie(this));
+        this.episodes = episodes;
     }
 
     @Override
