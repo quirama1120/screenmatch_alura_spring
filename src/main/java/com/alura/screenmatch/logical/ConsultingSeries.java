@@ -25,7 +25,7 @@ public class ConsultingSeries  {
         String apiCallResponse = apiCall.receivingData(url);
         DataConversor converse = new DataConversor();
         var dataSeries = converse.obtainingData(apiCallResponse, SeriesData.class);
-        System.out.println(dataSeries);
+        System.out.println("Se ha encontrado la serie satisfactoriamente " + dataSeries);
         return Collections.singletonList(dataSeries);
     }
 }

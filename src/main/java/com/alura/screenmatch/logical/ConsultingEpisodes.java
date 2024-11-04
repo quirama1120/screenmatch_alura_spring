@@ -5,7 +5,6 @@ import com.alura.screenmatch.model.SeasonData;
 import com.alura.screenmatch.model.SeriesData;
 import com.alura.screenmatch.service.ApiCall;
 import com.alura.screenmatch.service.DataConversor;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -30,10 +29,8 @@ public class ConsultingEpisodes {
         String seriesTitleTrunc = serieTitle.replaceAll(" ", "+");
         String urlSeason = URL_IMDB + seriesTitleTrunc + "&Season=" + inputSeason;
         String apicalSeasonResponse = apiCall.receivingData(urlSeason);
-
         var dataSeasonSeries = converse.obtainingData(apicalSeasonResponse, SeasonData.class);
-        System.out.println("Los episodios de la temporada " + inputSeason + " de la serie " + serieList.stream()
-                .map(SeriesData::title)+ " son: ");
+        System.out.println("Los episodios de la temporada " + inputSeason + " de la serie " + serieTitle + " son: ");
         var episodesData = dataSeasonSeries.episodes();
         System.out.println(episodesData);
         dataSeasonSeries.episodes().forEach(t -> {
