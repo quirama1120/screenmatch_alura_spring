@@ -29,6 +29,7 @@ public class Main {
 					Ingresa la opción que desees consultar
 					1. Consultar series.
 					2. Consultar películas.
+					3. Series en la base de datos con un rating y un número de temporadas específico.
 					0. Salir.
 					""");
             int userInput = keyword.nextInt();
@@ -78,6 +79,17 @@ public class Main {
                     List <SeriesData> moviesData = consultingMovies.consultingMoviesExecution();
 
                     dataList.addAll(moviesData);
+                } case 3 -> {
+                    System.out.println("Ingresa el número de temporadas de la serie que quieres filtrar");
+                    Integer inputUserRating = keyword.nextInt();
+                    keyword.nextLine();
+                    System.out.println("Ingresa el rating de la serie que quieres filtrar");
+                    Double inputUserTotalSeasons = keyword.nextDouble();
+                    List <Serie> serieList = repository.
+                            findByTotalSeasonsLessThanEqualAndRatingGreaterThan(inputUserTotalSeasons, inputUserRating);
+                    System.out.println("**********");
+                    System.out.println("Las series que complen tus condiciones son: ");
+                    serieList.forEach(System.out::println);
                 }
                 case 0 -> {
                     var series = repository.findAll();
