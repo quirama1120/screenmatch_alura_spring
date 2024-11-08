@@ -5,6 +5,8 @@ import com.alura.screenmatch.logical.ConsultingSeries;
 import com.alura.screenmatch.model.*;
 import com.alura.screenmatch.repository.EpisodeRepository;
 import com.alura.screenmatch.repository.SerieRepository;
+import com.alura.screenmatch.service.SeriesService;
+
 import java.util.*;
 
 public class Main {
@@ -77,7 +79,6 @@ public class Main {
                     }
                 } case 2 -> {
                     List <SeriesData> moviesData = consultingMovies.consultingMoviesExecution();
-
                     dataList.addAll(moviesData);
                 } case 3 -> {
                     System.out.println("Ingresa el número de temporadas de la serie que quieres filtrar");

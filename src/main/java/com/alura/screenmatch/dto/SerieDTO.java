@@ -1,9 +1,9 @@
 package com.alura.screenmatch.dto;
-
-
 import com.alura.screenmatch.model.CategoryEnum;
 
-public record SerieDTO(String title,
+public record SerieDTO(
+                       Long id,
+                       String title,
                        Double rating,
                        Integer totalSeasons,
                        CategoryEnum genre,
