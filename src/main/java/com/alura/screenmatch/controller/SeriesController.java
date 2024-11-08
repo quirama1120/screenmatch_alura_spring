@@ -41,4 +41,8 @@ public class SeriesController {
         return service.gettingAllSeasons(id);
     }
 
+    @GetMapping("/categoria/{genreName}")
+    public List <SerieDTO> gettingSeriesByGenre (@PathVariable String genreName) {
+    return service.gettingSeriesByGenre(genreName);
+    }
 }

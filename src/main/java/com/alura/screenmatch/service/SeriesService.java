@@ -1,6 +1,8 @@
 package com.alura.screenmatch.service;
 import com.alura.screenmatch.dto.EpisodeDTO;
 import com.alura.screenmatch.dto.SerieDTO;
+import com.alura.screenmatch.model.CategoryEnum;
+import com.alura.screenmatch.model.SeasonData;
 import com.alura.screenmatch.model.Serie;
 import com.alura.screenmatch.repository.EpisodeRepository;
 import com.alura.screenmatch.repository.SerieRepository;
@@ -58,5 +60,10 @@ public class SeriesService {
                     .collect(Collectors.toList());
         }
         return null;
+    }
+
+    public List <SerieDTO> gettingSeriesByGenre(String genreName) {
+        CategoryEnum category = CategoryEnum.fromString(genreName);
+        return converseData(repository.findByGenre(category));
     }
 }
